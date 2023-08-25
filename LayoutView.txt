@@ -1,0 +1,608 @@
+	**ProductsController**
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+
+namespace LayoutViewExample.Controllers
+{
+    public class ProductsController : Controller
+    {
+        // GET: Products
+        public ActionResult Index()
+        {
+            return View();
+        }
+
+        public ActionResult Details(int? id)
+        {
+            var Products = new[]
+            {
+            new {ProductID=1,ProductName="phone",Cost=17000},
+            new {ProductID=2,ProductName="Refrigerator",Cost=40000},
+            new {ProductID=3,ProductName="Television",Cost=27000}
+            };
+
+            string ProName = "";
+            foreach(var pro in Products)
+            {
+                if(pro.ProductID==id)
+                {
+                    ProName = pro.ProductName;
+                }
+            }
+            return Content(ProName);
+           
+        }
+
+
+        public ActionResult GetProductDetails(string ProductName)
+        {
+            var Products = new[]
+            {
+            new {ProductID=1,ProductName="phone",Cost=17000},
+            new {ProductID=2,ProductName="Refrigerator",Cost=40000},
+            new {ProductID=3,ProductName="Television",Cost=27000}
+            };
+            if(ProductName == null)
+            {
+                return Content("Please pass any product name");
+            }
+            int ProID =0;
+            foreach (var pro in Products)
+            {
+                if (pro.ProductName == ProductName)
+                {
+                    ProID = pro.ProductID;
+                }
+            }
+            return Content(ProID.ToString());
+        }
+
+    }
+}
+
+**contact.cshtml***
+
+
+@{
+    ViewBag.Title = "Contact";
+}
+
+@*@<h2>Contact Page Content Here</h2>*@
+
+
+@{
+    ViewBag.ListTitle = "Contact Details";
+    ViewBag.Items = new List<string>() { "Corporate Office", "Support Team", "Marketing Team" };
+    Html.RenderPartial("ListPartialView");
+
+}
+
+
+@{
+    ViewBag.Message = "Contact our Customer care Representative";
+}
+
+
+** Index.cshtml**
+
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Home Page Content Here</h2>
+
+@{
+    ViewBag.Message = "Demo Application";
+}
+
+@section SideBarOptions
+{
+    <a href="#" class="list-group-item text-white" style="background-color:transparent">Admin Home</a>
+    <a href="#" class="list-group-item text-white" style="background-color:transparent">Agent Home</a>
+    <a href="#" class="list-group-item text-white" style="background-color:transparent">Customer Home</a>
+}
+
+**Profile.cshtml**
+
+
+@{
+    ViewBag.Title = "Profile";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+    // Layout = null;
+    // int c = 0;
+    //if (IsPost)
+    //{
+    //int a = Request["txtNum1"].AsInt();
+    //int b = Request["txtNum2"].AsInt();
+    //c = a + b;
+    //}
+}
+
+
+
+<script type="text/javascript">
+    function Add() {
+        debugger;
+        var a = txtNum1.val();
+        var b = txtNum2.val();
+        //var a = Request["txtNum1"].AsInt();
+        //var b = Request["txtNum2"].AsInt();
+        //var a = 5;
+        //var b = 5;
+        c = a + b;
+    }
+
+</script>
+
+@{
+    ViewBag.Message = " Profile";
+}
+
+
+<html>
+<body>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        .pull-right1 {
+            position: relative;
+            left: -296%;
+            bottom: 15px;
+            height: 0px;
+        }
+        .formheading {
+            font-size: 20px;
+            padding: 6px 10px;
+            border-radius: 40px;
+            margin: 0px 12px;
+            display: inline-block;
+            background-color: #003F6F;
+            /* background: linear-gradient(90deg, rgba(0,63,111,1) 36%, rgba(225,36,84,1) 100%);  #5f3464;*/
+            /* background-color: #337ab7;*/
+            color: #fff;
+        }
+
+        .form-control {
+            margin-bottom: 20px;
+            width: 255px;
+        }
+
+        .main {
+            background-color: #fff;
+            color: #337ab7;
+            margin-bottom: 20px;
+            font-weight: 600;
+            padding: 7px;
+        }
+
+        .stl {
+            background-color: green;
+            color: white;
+            margin-left: 450px;
+        }
+
+        table, td, th {
+            border: 1px solid;
+        }
+    </style>
+    <br />
+    <h2 style="text-align: center;" class="formheading">New Registration   <i class="fa fa-user-plus" style="color:#fff;"></i></h2><br />
+
+    <form name="myform" method="post">
+        <div class="container">
+
+            <div class="row">
+                <div class="col-xs-12 col-sm-4">
+                    <b> Name of the person <span style="color:red;">*</span>:</b>
+
+                    <input type="text" name="txtname" autocomplete="off" id="txtname" class="form-control" />
+
+                    @*@Html.Label("lblname","Enter Name of the Person")
+                    @Html.TextBox("txtName", new { @class = "form-control"})*@
+
+                </div>
+                <div class="col-xs-12 col-sm-4">
+                    <b> Qualification <span style="color:red;">*</span>:</b>
+                    <select id="ddlDesig" name="ddlDesig" autocomplete="off" class="form-control">
+                        <option>--select--</option>
+                        <option>SSC</option>
+                        <option>Intermediate</option>
+                        <option>B.Tech/B.E</option>
+                        <option>M.Tech</option>
+                    </select>
+                </div>
+                <div class="col-xs-12 col-sm-4">
+                    <b>Gender <span style="color:red;">*</span>:</b>
+                    <div class="form-control">
+                        <input type="radio" name="gender" id="radiomale" value="Male" />Male
+                        <input type="radio" name="gender" id="radiofemale" value="FeMale" />FeMale
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-12 col-sm-4">
+                    <b> Mobile Number <span style="color:red;">*</span>:</b>
+
+                    <input type="text" name="txtmobile" id="txtmobile" autocomplete="off" class="form-control"
+                           onkeypress='return restrictAlphabets(event)' maxlength="10" />
+                    @* onkeyup="return AllowSpace(this.id)"*@
+                </div>
+
+
+
+                <div class="col-xs-12 col-sm-4" style="position:relative">
+                    <b>Confirm Mobile Number <span style="color:red;">*</span>:</b>
+                    <span style="position: absolute; right: 70px;bottom: 30px;">
+                        <i id="fclose" class="fa fa-close pull-right1" style="color:red; display:none;"></i>
+                        <i id="fopen" class="fa fa-check pull-right1" style="color: green; display: none;"></i>
+                    </span>
+                    <input type="text" name="txtConmobile" id="txtConmobile"  
+                           autocomplete="off" class="form-control" onkeypress='return restrictAlphabets(event)' maxlength="10" />
+                </div>
+
+
+                <div class="col-xs-12 col-sm-4">
+                    <b>Languages Known <span style="color:red;">*</span>:</b>
+                    <div class="form-control">
+                        <input type="checkbox" name="Language" id="checktelugu" value="Telugu" />Telugu
+                        <input type="checkbox" name="Language" id="checkEnglish" value="English" />English
+                        <input type="checkbox" name="Language" id="checkHindi" value="Hindi" />Hindi
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-4">
+                    <b> Email ID <span style="color:red;">*</span>:</b>
+
+                    <input type="text" name="txtemail" id="txtemail" autocomplete="off" class="form-control" />
+                </div>
+                <div class="col-xs-12 col-sm-4">
+                    <b>Confirm Email ID <span style="color:red;">*</span>:</b>
+
+                    <input type="text" name="txtConemail" id="txtConemail" autocomplete="off" class="form-control" />
+                </div>
+            </div>
+
+
+            <h2 class="formheading">Address    <i class="fa fa-address-card-o" style="color:#fff;"></i></h2><br />
+
+            <div class="row">
+                <div class="col-xs-12 col-sm-4">
+                    <b>Country <span style="color:red;">*</span> :</b>
+
+                    <select id="ddlcountry" name="ddlcountryList" autocomplete="off" class="form-control">
+                        <option value="0">--select--</option>
+                        <option value="1">India</option>
+                        <option value="2">Pakistan</option>
+                        <option value="3">UK</option>
+                        <option value="4">Australlia</option>
+                    </select>
+                </div>
+                <div class="col-xs-12 col-sm-4">
+                    <b>State <span style="color:red;">*</span> :</b>
+
+                    <select id="ddlstate" name="ddlstate" autocomplete="off" class="form-control">
+                        <option>--select--</option>
+                        <option>Andhra Pradesh</option>
+                        <option>Telangana</option>
+                        <option>Uttarpradesh</option>
+                        <option>karnataka</option>
+                        <option>Arunachala pradesh</option>
+                        <option>odisha</option>
+                        <option>Madhya Pradesh</option>
+                    </select>
+                </div>
+                <div class="col-xs-12 col-sm-4">
+                    <b>District <span style="color:red;">*</span> :</b>
+
+                    <select id="ddlDist" name="ddlDist" autocomplete="off" class="form-control">
+                        <option>--select--</option>
+                        <option>Srikakulam</option>
+                        <option>Karimnagar</option>
+                        <option>Anakapalli</option>
+                        <option>Rajanna Siricilla</option>
+                        <option>Ananthapuram</option>
+                        <option>siddipet</option>
+                        <option>Hyderabad</option>
+                        <option>Nizambad</option>
+                        <option>Nellore</option>
+                        <option>Prakasam</option>
+                    </select>
+                </div>
+                <div class="col-xs-12 col-sm-4">
+                    <b> D.No/Street/Landmark <span style="color:red;">*</span>:</b>
+
+                    <input type="text" name="txtDno" autocomplete="off" class="form-control" />
+                </div>
+                <div class="col-xs-12 col-sm-4">
+                    <b>Pincode <span style="color:red;">*</span>:</b>
+
+                    <input type="text" name="txtpincode" autocomplete="off" class="form-control" />
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-12 ">
+                    <input type="checkbox" name="confirmBox" id="checkconfirm" />  This is to certify that the information furnished is true and correct to the best of my knowledge and belief.
+                </div>
+
+            </div>
+            <br />
+            <div class="row">
+                <input type="submit" id="btnsubmit" value="Submit" class="stl form-control" style="width:80px;height:fit-content;" onclick="return Validate();" />&nbsp;&nbsp;
+                <input type="submit" id="btnclear" value="Clear" class="form-control" style="width: 60px; height: fit-content; background-color: red; color: white;float:left;" /><br /><br />
+            </div>
+
+            @* Result is:<span style="margin-left:20px;">@c</span>*@
+            <table style="border-collapse:collapse;width:60%;text-align:center;margin-left:120px;">
+                <thead>
+                    <tr>
+                        <th>S.No</th>
+                        <th>Name of the Person</th>
+                        <th>Designation</th>
+                        <th>Mobile Number</th>
+                        <th>Gender</th>
+                        <th>Country</th>
+                        <th>Languages Known</th>
+                        <th>Email-ID</th>
+                        <th>Confirm Email</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>@Request["txtname"]</td>
+                        <td>@Request["ddlDesig"]</td>
+                        <td>@Request["txtmobile"]</td>
+                        <td>@Request["gender"]</td>
+                        <td>@Request["ddlcountryList"]</td>
+                        <td>@Request["Language"]</td>
+                        <td>@Request["txtemail"]</td>
+                        <td>@Request["txtConemail"]</td>
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+    </form>
+</body>
+</html>
+
+<script type="text/javascript">
+    function restrictAlphabets(e) {
+        var x = e.which || e.keycode;
+        if ((x >= 48 && x <= 57))
+            return true;
+        else
+            return false;
+    }
+    function ValidateAlpha(evt) {
+        var keyCode = (evt.which) ? evt.which : evt.keyCode
+        if ((keyCode < 65 || keyCode > 90) && (keyCode < 97 || keyCode > 123) && keyCode != 32)
+
+            return false;
+        return true;
+    }
+
+    function Validate() {
+        debugger;
+        var NAME = document.getElementById('txtname');
+        if (NAME.value == "" || NAME.value == null) {
+            alert("Please enter Name of the Person");
+            NAME.focus();
+            return false;
+        }
+        //var qualification = document.getElementById('ddlDesig');
+        //if (qualification.value == "0" ) {
+        //    alert("Please select Qualification");
+        //    qualification.focus();
+        //    return false;
+        //}
+        var mobile = document.getElementById('txtmobile');
+        if (mobile.value == "" || mobile.value == null) {
+            alert("Please enter Mobile Number");
+            mobile.focus();
+            return false;
+        }
+        var conmobile = document.getElementById('txtConmobile');
+        if (conmobile.value == "" || conmobile.value == null) {
+            alert("Please enter Confirm Mobile Number");
+            conmobile.focus();
+            return false;
+        }
+
+        //if (mobile != conmobile)
+        //{
+        //    alert("Mobile Number Not matched");
+        //    conmobile.va = "";
+        //    conmobile.focus();
+        //    return false;
+        //}
+        var email = document.getElementById('txtemail');
+        if (email.value == "" || email.value == null) {
+            alert("Please enter Email ID");
+            email.focus();
+            return false;
+        }
+        var conemail = document.getElementById('txtConemail');
+        if (conemail.value == "" || conemail.value == null) {
+            alert("Please enter Name of the Person");
+            conemail.focus();
+            return false;
+        }
+        //if (email != conemail) {
+        //    alert("Email ID Not matched");
+        //    conmobile.focus();
+        //    return false;
+        //}
+    }
+</script>
+
+<script type="text/javascript">
+
+    $("#txtConmobile").on('input', function () {
+        debugger;
+        var Mobile = $("#txtmobile").val();
+        var Conmobile = $("#txtConmobile").val();
+        $('#fclose').css("display", "block");
+        if (Mobile == Conmobile) {
+            $('#fopen').css("display", "block");
+            $('#fclose').css("display", "none");
+        }
+        else {
+            $('#fopen').css("display", "none");
+            $('#fclose').css("display", "block");
+        }
+    });
+</script>
+
+**shared/Layoutpage1.cshtml**
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-3.6.4.js"></script>
+    <script src="~/Scripts/umd/popper.js"></script>
+    <script src="~/Scripts/bootstrap.js"></script>
+
+    <title>@ViewBag.Title</title>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-sm bg-info navbar-dark">
+        @*style="background: linear-gradient(-90deg, rgba(0,63,111,1) 36%, rgba(225,36,84,1) 100%); "*@
+        <a class="navbar-brand" href="#">Company</a>
+        <div class="Col-8">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="/home/index">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/home/about">About</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/home/contact">contact</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/home/Profile">Profile</a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="col-10 text-white" style="padding-left:300px;">
+            @ViewBag.Message
+        </div>
+    </nav>
+
+    <div class="container-fluid">
+        <div class="row">
+
+        <div class="col-2 text-white" style="background-color:#003F6F;min-height:1050px;padding:0px">
+            <div class="list-group">
+                <a href="#" class="list-group-item text-white" style="background-color:transparent">Favourites</a>
+                <a href="#" class="list-group-item text-white" style="background-color:transparent">Products</a>
+                <a href="#" class="list-group-item text-white" style="background-color:transparent">Your Orders</a>
+                @RenderSection("SideBarOptions",required:false)
+            </div>
+        </div>
+
+        <div class="col-10" style="min-height:610px">
+            @RenderBody()
+        </div>
+
+    </div>
+        </div>
+   
+</body>
+</html>
+
+**Layoutpage_2**
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-3.6.4.js"></script>
+    <script src="~/Scripts/umd/popper.js"></script>
+    <script src="~/Scripts/bootstrap.js"></script>
+
+    <title>@ViewBag.Title</title>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-sm bg-success navbar-dark">
+        @*style="background: linear-gradient(-90deg, rgba(0,63,111,1) 36%, rgba(225,36,84,1) 100%); "*@
+        <a class="navbar-brand" href="#">Company</a>
+        <div class="Col-8">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="/home/index">Home</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="/home/contact">contact</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/home/about">About</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/home/Profile">Profile</a>
+                </li>
+            </ul>
+        </div>
+
+       
+    </nav>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-10" style="min-height:610px">
+                @RenderBody()
+            </div>
+            @*background-color:#fa8405;*@
+            <div class="col-2 text-white " style=" background-color: #fa8405; min-height: 1050px; padding: 0px">
+                <div class="list-group">
+                    <a href="#" class="list-group-item text-white" style="background-color:transparent">Favourites</a>
+                    <a href="#" class="list-group-item text-white" style="background-color:transparent">Products</a>
+                    <a href="#" class="list-group-item text-white" style="background-color:transparent">Your Orders</a>
+                    @RenderSection("SideBarOptions", required: false)
+                <p class="text-info m-3"> @ViewBag.Message</p>
+                </div>
+            </div>
+
+
+
+        </div>
+    </div>
+
+</body>
+</html>
+
+**ListPartialView.cshtml***
+	
+
+<div>
+    <h3>@ViewBag.ListTitle</h3>
+
+    <ul>
+        @for (int i = 0; i < ViewBag.Items.Count; i++)
+        {
+            <li>
+                @ViewBag.Items[i]
+            </li>
+        }
+    </ul>
+</div>
+

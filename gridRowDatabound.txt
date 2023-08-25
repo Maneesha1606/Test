@@ -1,0 +1,51 @@
+try {
+ if (Session["BenData"] != null) {
+ DataTable dtnewBen = Session["BenData"] as DataTable;
+ foreach (GridViewRow grd in GridSoakPitSanctioned.Rows) { 
+GP_Flag = dtnewBen.Rows[grd.RowIndex]["GP_Flag"].ToString();
+ EstGenerateds_Flag = dtnewBen.Rows[grd.RowIndex]["Est_Gen_MCC_NREGA_Soft_Flag"].ToString(); 
+TechnicalSanction_Flag = dtnewBen.Rows[grd.RowIndex]["Tech_Sanctioned_Flag"].ToString(); 
+Adminsanction_Flag = dtnewBen.Rows[grd.RowIndex]["AS_Accorded_Flag"].ToString(); 
+MGNREWorkID = dtnewBen.Rows[grd.RowIndex]["MGNREGA_WorkID"].ToString(); 
+CheckBox chkGPResolutionsObtained = (CheckBox)grd.Cells[4].FindControl("chkGPResolutionsObtained"); 
+CheckBox chkEstimatesgenerated = (CheckBox)grd.Cells[5].FindControl("chkEstimatesgenerated");
+ CheckBox chkTechnicallySanctioned = (CheckBox)grd.Cells[6].FindControl("chkTechnicallySanctioned"); 
+CheckBox chkAdministrativeSanction = (CheckBox)grd.Cells[7].FindControl("chkAdministrativeSanction"); 
+TextBox txtMGNREGAWorkId = (TextBox)grd.Cells[8].FindControl("txtMGNREGAWorkId"); 
+if (GP_Flag == "Y") { 
+chkGPResolutionsObtained.Checked = true;
+ } 
+else { 
+chkGPResolutionsObtained.Checked = false;
+ }
+ if (EstGenerateds_Flag == "Y")
+ { chkEstimatesgenerated.Checked = true; 
+} 
+else { 
+chkEstimatesgenerated.Checked = false;
+ } 
+if (TechnicalSanction_Flag == "Y") 
+{ 
+chkTechnicallySanctioned.Checked = true;
+ } 
+else 
+{ chkTechnicallySanctioned.Checked = false;
+ } 
+if (Adminsanction_Flag == "Y") 
+{
+ chkAdministrativeSanction.Checked = true;
+ txtMGNREGAWorkId.Visible = true;
+ txtMGNREGAWorkId.Text = MGNREWorkID;
+ } 
+else 
+{ 
+chkAdministrativeSanction.Checked = false; 
+} 
+}
+}
+} 
+catch (Exception ex) 
+{ 
+ex.Message.ToString();
+ }
+
