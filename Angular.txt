@@ -17,6 +17,7 @@
       <div ng-app="myApp" ng-controller="myCtrl">
 <p>Name: <input type="text" ng-model="name"/></p>
 <p>Name: <input type="text" ng-model="names"/></p>
+<p>Name: <input type="text" ng-model="namess"/></p>
 <h1>You entered: {{name}}</h1>
 </div>
 
